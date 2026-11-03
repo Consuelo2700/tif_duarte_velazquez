@@ -1,0 +1,16 @@
+# Entornos virtuales
+venv/
+.venv/
+
+# Base de datos local
+db.sqlite3
+
+# Archivos temporales de Python
+__pycache__/
+*.py[cod]
+
+# Variables de entorno
+.env
+
+# Configuración local de VS Code
+.vscode/git status --shortgit status --short
