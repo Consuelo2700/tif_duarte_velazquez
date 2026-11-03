@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Productos - Tienda Lula</title>
+</head>
+<body>
+    <h1>Listado de productos</h1>
+
+    {% for producto in productos %}
+        <h2>{{ producto.nombre }}</h2>
+        <p>Precio: ${{ producto.precio }}</p>
+        <p>Stock: {{ producto.stock }}</p>
+    {% empty %}
+        <p>No hay productos registrados.</p>
+    {% endfor %}
+
+</body>
+</html>
