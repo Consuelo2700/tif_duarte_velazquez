@@ -7,6 +7,9 @@ from .views import inicio
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('productos/', include('productos.urls')),
+    path('categorias/', include('categorias.urls')),
+    path('clientes/', include('clientes.urls')),
+    path('ventas/', include('ventas.urls')),
     path('', inicio, name='inicio'),
 ]
 

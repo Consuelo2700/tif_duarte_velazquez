@@ -1,0 +1,112 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Categorías - Tienda Lula</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f3fa;
+            margin: 0;
+            padding: 30px;
+            color: #4b3655;
+        }
+
+        h1 {
+            color: #80529a;
+            text-align: center;
+        }
+
+        .contenedor {
+            max-width: 850px;
+            margin: auto;
+        }
+
+        .boton {
+            display: inline-block;
+            background-color: #9b6bb0;
+            color: white;
+            padding: 10px 16px;
+            border-radius: 8px;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            margin: 5px 0;
+        }
+
+        .categoria {
+            background-color: white;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px #ddd;
+        }
+
+        .volver {
+            display: block;
+            text-align: center;
+            margin-top: 25px;
+            color: #80529a;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="contenedor">
+
+    <h1>Gestión de categorías</h1>
+
+    <a class="boton" href="{% url 'categorias:crear_categoria' %}">
+        + Registrar nueva categoría
+    </a>
+
+    {% for categoria in categorias %}
+
+        <div class="categoria">
+
+            <h2>{{ categoria.nombre }}</h2>
+
+            <p>{{ categoria.descripcion }}</p>
+
+            <p>
+                Estado:
+                {% if categoria.activa %}
+                    Activa
+                {% else %}
+                    Inactiva
+                {% endif %}
+            </p>
+
+            <a class="boton"
+               href="{% url 'categorias:modificar_categoria' categoria.id %}">
+                Modificar
+            </a>
+
+            <form method="POST"
+                  action="{% url 'categorias:cambiar_estado_categoria' categoria.id %}">
+                {% csrf_token %}
+
+                <button class="boton" type="submit">
+                    {% if categoria.activa %}
+                        Desactivar
+                    {% else %}
+                        Activar
+                    {% endif %}
+                </button>
+            </form>
+
+        </div>
+
+    {% empty %}
+        <p>Todavía no hay categorías registradas.</p>
+    {% endfor %}
+
+    <a class="volver" href="/">Volver al inicio</a>
+
+</div>
+
+</body>
+</html>
