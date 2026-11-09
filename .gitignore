@@ -13,4 +13,4 @@ __pycache__/
 .env
 
 # Configuración local de VS Code
-.vscode/git status --shortgit status --short
+.vscode/

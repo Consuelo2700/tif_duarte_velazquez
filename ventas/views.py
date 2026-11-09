@@ -1,7 +1,7 @@
 
 from decimal import Decimal
 
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.db import transaction
 from django.forms import inlineformset_factory
 
@@ -198,5 +198,31 @@ def crear_venta(request):
         {
             'formulario': formulario,
             'formulario_detalles': formulario_detalles
+        }
+    )
+
+
+# VER DETALLE DE UNA VENTA
+
+def ver_detalle_venta(request, id):
+
+    venta = get_object_or_404(
+        Venta.objects.select_related('cliente'),
+        id=id
+    )
+
+    detalles = DetalleVenta.objects.filter(
+        venta=venta
+    ).select_related('producto')
+
+    for detalle in detalles:
+        detalle.subtotal = detalle.cantidad * detalle.precio_unitario
+
+    return render(
+        request,
+        'ventas/detalle.html',
+        {
+            'venta': venta,
+            'detalles': detalles
         }
     )

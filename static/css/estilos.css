@@ -341,6 +341,40 @@ body {
 
 
 /* =================================
+   DETALLE DE VENTA
+================================= */
+
+.datos-venta p {
+    margin: 8px 0;
+}
+
+.tabla-detalle {
+    width: 100%;
+    margin: 18px 0;
+    border-collapse: collapse;
+}
+
+.tabla-detalle th,
+.tabla-detalle td {
+    padding: 10px;
+    border-bottom: 1px solid var(--lila-borde);
+    text-align: left;
+}
+
+.tabla-detalle th {
+    background-color: var(--lila-encabezado);
+    color: var(--violeta-texto);
+}
+
+.total-venta {
+    text-align: right;
+    font-size: 18px;
+    font-weight: bold;
+    color: var(--violeta-titulo);
+}
+
+
+/* =================================
    PÁGINA DE INICIO
 ================================= */
 

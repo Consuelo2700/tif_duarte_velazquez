@@ -10,7 +10,7 @@ class Producto(models.Model):
     stock = models.PositiveIntegerField()
     categoria = models.ForeignKey(
         'categorias.Categoria',
-        on_delete=models.CASCADE
+        on_delete=models.PROTECT
     )
     activa = models.BooleanField(default=True)
     fecha_registro = models.DateTimeField(auto_now_add=True)

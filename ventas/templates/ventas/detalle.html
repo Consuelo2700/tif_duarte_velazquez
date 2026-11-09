@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Detalle de venta - Tienda Lula
+{% endblock %}
+
+{% block content %}
+
+<section class="panel">
+
+    <h1 class="titulo-pagina">
+        Detalle de venta N.º {{ venta.id }}
+    </h1>
+
+    <div class="datos-venta">
+
+        <p>
+            <strong>Cliente:</strong>
+            {{ venta.cliente.nombre_apellido }}
+        </p>
+
+        <p>
+            <strong>Fecha:</strong>
+            {{ venta.fecha_venta|date:"d/m/Y H:i" }}
+        </p>
+
+    </div>
+
+    <h2>Productos vendidos</h2>
+
+    {% if detalles %}
+
+        <table class="tabla-detalle">
+
+            <thead>
+                <tr>
+                    <th>Producto</th>
+                    <th>Cantidad</th>
+                    <th>Precio unitario</th>
+                    <th>Subtotal</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for detalle in detalles %}
+                    <tr>
+                        <td>{{ detalle.producto.nombre }}</td>
+                        <td>{{ detalle.cantidad }}</td>
+                        <td>${{ detalle.precio_unitario }}</td>
+                        <td>${{ detalle.subtotal }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+
+        </table>
+
+        <p class="total-venta">
+            Total de la venta: ${{ venta.total }}
+        </p>
+
+    {% else %}
+
+        <p class="mensaje-vacio">
+            Esta venta no tiene productos registrados.
+        </p>
+
+    {% endif %}
+
+    <a class="enlace-volver"
+       href="{% url 'ventas:listar_ventas' %}">
+        Volver a ventas
+    </a>
+
+</section>
+
+{% endblock %}

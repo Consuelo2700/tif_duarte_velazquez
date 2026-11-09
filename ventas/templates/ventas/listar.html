@@ -64,6 +64,15 @@
                     ${{ venta.total }}
                 </p>
 
+                <div class="acciones">
+
+                    <a class="boton"
+                       href="{% url 'ventas:ver_detalle_venta' venta.id %}">
+                        Ver detalle
+                    </a>
+
+                </div>
+
             </article>
 
         {% empty %}
