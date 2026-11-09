@@ -44,9 +44,13 @@
         </a>
 
 
-        <a href="#">Clientes</a>
+        <a href="{% url 'clientes:listar_clientes' %}">
+            Clientes
+        </a>
 
-        <a href="#">Ventas</a>
+        <a href="{% url 'ventas:listar_ventas' %}">
+            Ventas
+        </a>
 
     </nav>
 

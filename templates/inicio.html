@@ -1,4 +1,4 @@
-
+```django
 {% extends 'base.html' %}
 
 {% block title %}
@@ -62,6 +62,13 @@
                 Registro de clientes.
             </p>
 
+            <a class="boton"
+               href="{% url 'clientes:listar_clientes' %}">
+
+                Ingresar a clientes
+
+            </a>
+
         </article>
 
 
@@ -73,6 +80,13 @@
                 Registro y consulta de ventas.
             </p>
 
+            <a class="boton"
+               href="{% url 'ventas:listar_ventas' %}">
+
+                Ingresar a ventas
+
+            </a>
+
         </article>
 
     </div>
@@ -80,3 +94,4 @@
 </section>
 
 {% endblock %}
+```
