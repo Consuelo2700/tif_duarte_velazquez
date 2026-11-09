@@ -1,124 +1,55 @@
 
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <title>Detalle de venta - Tienda Lula</title>
+{% extends 'base.html' %}
 
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #faf7ff;
-            color: #49336b;
-            margin: 0;
-            padding: 30px;
-        }
+{% block title %}Detalle de venta - Tienda Lula{% endblock %}
 
-        .contenedor {
-            max-width: 950px;
-            margin: auto;
-            background-color: white;
-            padding: 30px;
-            border-radius: 12px;
-            border: 1px solid #dfc9f5;
-        }
+{% block content %}
 
-        h1, h2 {
-            color: #7046a5;
-        }
+<div class="contenedor-detalle-venta">
 
-        h1 {
-            text-align: center;
-        }
+    <h1>Detalle de venta N.º {{ venta.id }}</h1>
 
-        .datos {
-            background-color: #faf7ff;
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 25px;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
-
-        th, td {
-            padding: 12px;
-            border-bottom: 1px solid #dfc9f5;
-            text-align: left;
-        }
-
-        th {
-            background-color: #e9dafa;
-        }
-
-        .total {
-            text-align: right;
-            font-size: 20px;
-            font-weight: bold;
-            color: #7046a5;
-            margin-top: 25px;
-        }
-
-        .volver {
-            display: inline-block;
-            margin-top: 20px;
-            color: #7046a5;
-            text-decoration: none;
-        }
-    </style>
-</head>
-
-<body>
-
-    <div class="contenedor">
-
-        <h1>Detalle de venta N.º {{ venta.id }}</h1>
-
-        <div class="datos">
-            <p><strong>Cliente:</strong> {{ venta.cliente.nombre_apellido }}</p>
-            <p><strong>Fecha:</strong> {{ venta.fecha_venta|date:"d/m/Y H:i" }}</p>
-        </div>
-
-        <h2>Productos vendidos</h2>
-
-        {% if detalles %}
-            <table>
-                <thead>
-                    <tr>
-                        <th>Producto</th>
-                        <th>Cantidad</th>
-                        <th>Precio unitario</th>
-                        <th>Subtotal</th>
-                    </tr>
-                </thead>
-
-                <tbody>
-                    {% for detalle in detalles %}
-                        <tr>
-                            <td>{{ detalle.producto.nombre }}</td>
-                            <td>{{ detalle.cantidad }}</td>
-                            <td>${{ detalle.precio_unitario }}</td>
-                            <td>${{ detalle.subtotal }}</td>
-                        </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-
-            <p class="total">
-                Total de la venta: ${{ venta.total }}
-            </p>
-        {% else %}
-            <p>Esta venta no tiene productos registrados.</p>
-        {% endif %}
-
-        <a class="volver" href="{% url 'ventas:listar_ventas' %}">
-            Volver a ventas
-        </a>
-
+    <div class="datos-venta">
+        <p><strong>Cliente:</strong> {{ venta.cliente.nombre_apellido }}</p>
+        <p><strong>Fecha:</strong> {{ venta.fecha_venta|date:"d/m/Y H:i" }}</p>
     </div>
 
-</body>
-</html>
+    <h2>Productos vendidos</h2>
+
+    {% if detalles %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Producto</th>
+                    <th>Cantidad</th>
+                    <th>Precio unitario</th>
+                    <th>Subtotal</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for detalle in detalles %}
+                    <tr>
+                        <td>{{ detalle.producto.nombre }}</td>
+                        <td>{{ detalle.cantidad }}</td>
+                        <td>${{ detalle.precio_unitario }}</td>
+                        <td>${{ detalle.subtotal }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <p class="total-venta">
+            Total de la venta: ${{ venta.total }}
+        </p>
+    {% else %}
+        <p>Esta venta no tiene productos registrados.</p>
+    {% endif %}
+
+    <a class="volver-detalle-venta" href="{% url 'ventas:listar_ventas' %}">
+        Volver a ventas
+    </a>
+
+</div>
+
+{% endblock %}

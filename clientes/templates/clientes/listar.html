@@ -1,75 +1,26 @@
 
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <title>Clientes - Tienda Lula</title>
+{% extends 'base.html' %}
 
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f8f3fa;
-            margin: 0;
-            padding: 30px;
-            color: #4b3655;
-        }
+{% block title %}Clientes - Tienda Lula{% endblock %}
 
-        .contenedor {
-            max-width: 850px;
-            margin: auto;
-        }
+{% block content %}
 
-        h1 {
-            color: #80529a;
-            text-align: center;
-        }
-
-        .boton {
-            display: inline-block;
-            background-color: #9b6bb0;
-            color: white;
-            padding: 10px 16px;
-            border-radius: 8px;
-            text-decoration: none;
-            border: none;
-            cursor: pointer;
-        }
-
-        .cliente {
-            background-color: white;
-            padding: 20px;
-            margin: 20px 0;
-            border-radius: 12px;
-            box-shadow: 0 2px 8px #ddd;
-        }
-
-        .volver {
-            display: block;
-            text-align: center;
-            margin-top: 25px;
-            color: #80529a;
-        }
-    </style>
-</head>
-
-<body>
-
-<div class="contenedor">
+<div class="contenedor-clientes">
 
     <h1>Gestión de clientes</h1>
 
-    <a class="boton" href="{% url 'clientes:crear_cliente' %}">
+    <a class="boton-cliente" href="{% url 'clientes:crear_cliente' %}">
         + Registrar nuevo cliente
     </a>
 
     {% for cliente in clientes %}
 
-        <div class="cliente">
+        <div class="cliente-item">
             <h2>{{ cliente.nombre_apellido }}</h2>
 
             <p>Teléfono: {{ cliente.telefono|default:"No registrado" }}</p>
 
-            <a class="boton"
+            <a class="boton-cliente"
                href="{% url 'clientes:modificar_cliente' cliente.id %}">
                 Modificar
             </a>
@@ -79,9 +30,6 @@
         <p>Todavía no hay clientes registrados.</p>
     {% endfor %}
 
-    <a class="volver" href="/">Volver al inicio</a>
-
 </div>
 
-</body>
-</html>
+{% endblock %}

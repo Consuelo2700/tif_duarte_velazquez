@@ -1,132 +1,61 @@
 
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Productos - Tienda Lula</title>
+{% extends 'base.html' %}
 
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #faf7ff;
-            color: #49336b;
-            margin: 0;
-            padding: 30px;
-        }
+{% block title %}Productos - Tienda Lula{% endblock %}
 
-        .contenedor {
-            max-width: 850px;
-            margin: auto;
-            background-color: white;
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.10);
-        }
+{% block content %}
 
-        h1 {
-            color: #7046a5;
-            text-align: center;
-        }
+<div class="contenedor">
 
-        .producto {
-            border: 1px solid #dfc9f5;
-            border-radius: 10px;
-            padding: 15px;
-            margin-top: 15px;
-        }
+    <h1>Listado de productos</h1>
 
-        .producto h2 {
-            color: #8055ad;
-        }
+    <a class="boton" href="{% url 'productos:crear_producto' %}">
+        + Registrar nuevo producto
+    </a>
 
-        .boton {
-            display: inline-block;
-            padding: 12px 18px;
-            background-color: #8052ad;
-            color: white;
-            text-decoration: none;
-            border: none;
-            border-radius: 8px;
-            margin-top: 15px;
-            cursor: pointer;
-            font-size: 14px;
-        }
+    {% for producto in productos %}
+        <div class="producto">
+            <h2>{{ producto.nombre }}</h2>
 
-        .boton:hover {
-            background-color: #603987;
-        }
+            <p>Código: {{ producto.codigo }}</p>
+            <p>Precio: ${{ producto.precio }}</p>
+            <p>Stock: {{ producto.stock }}</p>
+            <p>Categoría: {{ producto.categoria }}</p>
 
-        .volver {
-            display: block;
-            text-align: center;
-            margin-top: 20px;
-            color: #7046a5;
-            text-decoration: none;
-        }
-    </style>
-</head>
+            <p>
+                Estado:
+                {% if producto.activa %}
+                    Activo
+                {% else %}
+                    Inactivo
+                {% endif %}
+            </p>
 
-<body>
+            <a class="boton"
+               href="{% url 'productos:modificar_producto' producto.id %}">
+                Modificar
+            </a>
 
-    <div class="contenedor">
+            <form method="POST"
+                  action="{% url 'productos:cambiar_estado_producto' producto.id %}"
+                  class="form-estado">
+                {% csrf_token %}
 
-        <h1>Listado de productos</h1>
+                {% if producto.activa %}
+                    <button type="submit" class="boton">
+                        Desactivar
+                    </button>
+                {% else %}
+                    <button type="submit" class="boton">
+                        Activar
+                    </button>
+                {% endif %}
+            </form>
+        </div>
+    {% empty %}
+        <p>No hay productos registrados.</p>
+    {% endfor %}
 
-        <a class="boton" href="{% url 'productos:crear_producto' %}">
-            + Registrar nuevo producto
-        </a>
+</div>
 
-        {% for producto in productos %}
-            <div class="producto">
-                <h2>{{ producto.nombre }}</h2>
-
-                <p>Código: {{ producto.codigo }}</p>
-                <p>Precio: ${{ producto.precio }}</p>
-                <p>Stock: {{ producto.stock }}</p>
-                <p>Categoría: {{ producto.categoria }}</p>
-
-                <p>
-                    Estado:
-                    {% if producto.activa %}
-                        Activo
-                    {% else %}
-                        Inactivo
-                    {% endif %}
-                </p>
-
-                <a class="boton"
-                   href="{% url 'productos:modificar_producto' producto.id %}">
-                    Modificar
-                </a>
-
-                <form method="POST"
-                      action="{% url 'productos:cambiar_estado_producto' producto.id %}"
-                      style="display: inline;">
-                    {% csrf_token %}
-
-                    {% if producto.activa %}
-                        <button type="submit" class="boton">
-                            Desactivar
-                        </button>
-                    {% else %}
-                        <button type="submit" class="boton">
-                            Activar
-                        </button>
-                    {% endif %}
-                </form>
-
-            </div>
-        {% empty %}
-            <p>No hay productos registrados.</p>
-        {% endfor %}
-
-        <a class="volver" href="/">
-            Volver a la página principal
-        </a>
-
-    </div>
-
-</body>
-</html>
-
+{% endblock %}

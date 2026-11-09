@@ -1,62 +1,11 @@
 
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <title>Nuevo cliente - Tienda Lula</title>
+{% extends 'base.html' %}
 
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f8f3fa;
-            margin: 0;
-            padding: 30px;
-            color: #4b3655;
-        }
+{% block title %}Nuevo cliente - Tienda Lula{% endblock %}
 
-        .contenedor {
-            max-width: 550px;
-            margin: 40px auto;
-            background-color: white;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 2px 8px #ddd;
-        }
+{% block content %}
 
-        h1 {
-            color: #80529a;
-            text-align: center;
-        }
-
-        input {
-            width: 100%;
-            padding: 10px;
-            margin-top: 8px;
-            border: 1px solid #d5c3df;
-            border-radius: 6px;
-            box-sizing: border-box;
-        }
-
-        button {
-            background-color: #9b6bb0;
-            color: white;
-            padding: 12px 18px;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-        }
-
-        a {
-            color: #80529a;
-            display: inline-block;
-            margin-top: 20px;
-        }
-    </style>
-</head>
-
-<body>
-
-<div class="contenedor">
+<div class="contenedor-formulario">
 
     <h1>Registrar cliente</h1>
 
@@ -68,11 +17,10 @@
         <button type="submit">Guardar cliente</button>
     </form>
 
-    <a href="{% url 'clientes:listar_clientes' %}">
+    <a class="volver" href="{% url 'clientes:listar_clientes' %}">
         Volver al listado
     </a>
 
 </div>
 
-</body>
-</html>
+{% endblock %}

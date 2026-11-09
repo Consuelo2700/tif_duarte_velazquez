@@ -1,114 +1,24 @@
 
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <title>Registrar venta - Tienda Lula</title>
+{% extends 'base.html' %}
 
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #faf7ff;
-            color: #49336b;
-            margin: 0;
-            padding: 30px;
-        }
+{% block title %}Registrar venta - Tienda Lula{% endblock %}
 
-        .contenedor {
-            max-width: 850px;
-            margin: auto;
-            background-color: white;
-            padding: 30px;
-            border-radius: 12px;
-            border: 1px solid #dfc9f5;
-        }
+{% block content %}
 
-        h1, h2 {
-            color: #7046a5;
-        }
-
-        h1 {
-            text-align: center;
-        }
-
-        .grupo {
-            margin-bottom: 20px;
-        }
-
-        .detalle {
-            background-color: #faf7ff;
-            border: 1px solid #dfc9f5;
-            border-radius: 8px;
-            padding: 15px;
-            margin-bottom: 15px;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 8px;
-        }
-
-        select, input {
-            padding: 9px;
-            border: 1px solid #cdb5e8;
-            border-radius: 6px;
-            width: 100%;
-            box-sizing: border-box;
-        }
-
-        button, .boton {
-            background-color: #8052ad;
-            color: white;
-            padding: 10px 15px;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            text-decoration: none;
-            display: inline-block;
-            margin-top: 10px;
-        }
-
-        button:hover, .boton:hover {
-            background-color: #603987;
-        }
-
-        .quitar {
-            background-color: #a94468;
-        }
-
-        .quitar:hover {
-            background-color: #82344f;
-        }
-
-        .volver {
-            color: #7046a5;
-            display: inline-block;
-            margin-top: 20px;
-        }
-
-        .errores {
-            color: #b00020;
-            margin-bottom: 15px;
-        }
-    </style>
-</head>
-
-<body>
-
-<div class="contenedor">
+<div class="contenedor-venta">
 
     <h1>Registrar nueva venta</h1>
 
     <form method="POST">
         {% csrf_token %}
 
-        <div class="grupo">
+        <div class="grupo-venta">
             <h2>Datos del cliente</h2>
 
             {{ formulario.as_p }}
 
             {% if formulario.non_field_errors %}
-                <div class="errores">
+                <div class="errores-venta">
                     {{ formulario.non_field_errors }}
                 </div>
             {% endif %}
@@ -121,19 +31,19 @@
         <div id="detalles">
 
             {% for formulario_detalle in detalle_formset %}
-                <div class="detalle">
+                <div class="detalle-venta">
 
                     <h3>Producto</h3>
 
                     {{ formulario_detalle.as_p }}
 
                     {% if formulario_detalle.errors %}
-                        <div class="errores">
+                        <div class="errores-venta">
                             {{ formulario_detalle.errors }}
                         </div>
                     {% endif %}
 
-                    <button type="button" class="quitar">
+                    <button type="button" class="boton-venta quitar-venta">
                         Quitar producto
                     </button>
 
@@ -142,18 +52,18 @@
 
         </div>
 
-        <button type="button" id="agregar">
+        <button type="button" class="boton-venta" id="agregar">
             Agregar otro producto
         </button>
 
-        <div id="formulario-vacio" style="display: none;">
-            <div class="detalle">
+        <div id="formulario-vacio" class="formulario-vacio">
+            <div class="detalle-venta">
 
                 <h3>Producto</h3>
 
                 {{ detalle_formset.empty_form.as_p }}
 
-                <button type="button" class="quitar">
+                <button type="button" class="boton-venta quitar-venta">
                     Quitar producto
                 </button>
 
@@ -162,11 +72,11 @@
 
         <br>
 
-        <button type="submit">
+        <button type="submit" class="boton-venta">
             Registrar venta
         </button>
 
-        <a class="volver" href="{% url 'ventas:listar_ventas' %}">
+        <a class="volver-venta" href="{% url 'ventas:listar_ventas' %}">
             Volver a ventas
         </a>
 
@@ -181,10 +91,10 @@
     const formularioVacio = document.getElementById('formulario-vacio');
 
     function actualizarBotones() {
-        const filas = contenedor.querySelectorAll('.detalle');
+        const filas = contenedor.querySelectorAll('.detalle-venta');
 
         filas.forEach(function(fila) {
-            const botonQuitar = fila.querySelector('.quitar');
+            const botonQuitar = fila.querySelector('.quitar-venta');
 
             botonQuitar.disabled = filas.length === 1;
         });
@@ -210,12 +120,12 @@
 
     contenedor.addEventListener('click', function(evento) {
 
-        if (evento.target.classList.contains('quitar')) {
+        if (evento.target.classList.contains('quitar-venta')) {
 
-            const filas = contenedor.querySelectorAll('.detalle');
+            const filas = contenedor.querySelectorAll('.detalle-venta');
 
             if (filas.length > 1) {
-                evento.target.closest('.detalle').remove();
+                evento.target.closest('.detalle-venta').remove();
                 actualizarBotones();
             }
         }
@@ -224,5 +134,4 @@
     actualizarBotones();
 </script>
 
-</body>
-</html>
+{% endblock %}

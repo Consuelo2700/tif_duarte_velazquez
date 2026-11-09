@@ -1,99 +1,26 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <title>Registrar producto - Tienda Lula</title>
 
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f7f2fc;
-            margin: 0;
-            padding: 40px;
-        }
+{% extends 'base.html' %}
 
-        .contenedor {
-            max-width: 600px;
-            margin: auto;
-            background-color: white;
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.10);
-        }
+{% block title %}Registrar producto - Tienda Lula{% endblock %}
 
-        h1 {
-            text-align: center;
-            color: #7040a0;
-            margin-bottom: 25px;
-        }
+{% block content %}
 
-        form p {
-            margin-bottom: 18px;
-        }
+<div class="contenedor-formulario">
 
-        form label {
-            display: block;
-            font-weight: bold;
-            color: #50336b;
-            margin-bottom: 7px;
-        }
+    <h1>Registrar producto</h1>
 
-        input, select, textarea {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #d5c2e8;
-            border-radius: 7px;
-            box-sizing: border-box;
-        }
+    <form method="POST">
+        {% csrf_token %}
 
-        input[type="checkbox"] {
-            width: auto;
-        }
+        {{ formulario.as_p }}
 
-        button {
-            width: 100%;
-            padding: 12px;
-            background-color: #8052ad;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 16px;
-            cursor: pointer;
-        }
+        <button type="submit">Guardar producto</button>
+    </form>
 
-        button:hover {
-            background-color: #603987;
-        }
+    <a class="volver" href="{% url 'productos:listar_productos' %}">
+        Volver al listado
+    </a>
 
-        .volver {
-            display: block;
-            text-align: center;
-            margin-top: 20px;
-            color: #7040a0;
-            text-decoration: none;
-        }
-    </style>
-</head>
+</div>
 
-<body>
-
-    <div class="contenedor">
-
-        <h1>Registrar producto</h1>
-
-        <form method="POST">
-            {% csrf_token %}
-
-            {{ formulario.as_p }}
-
-            <button type="submit">Guardar producto</button>
-        </form>
-
-        <a class="volver" href="{% url 'productos:listar_productos' %}">
-            Volver al listado
-        </a>
-
-    </div>
-
-</body>
-</html>
+{% endblock %}
