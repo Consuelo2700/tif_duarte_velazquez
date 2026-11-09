@@ -66,9 +66,12 @@ def crear_venta(request):
             with transaction.atomic():
 
                 # Comprobar el stock total de cada producto
-                for detalle in detalles_validos:
-                    producto = detalle['producto']
-                    cantidad_total = cantidades_por_producto[producto.id]
+                for producto_id, cantidad_total in cantidades_por_producto.items():
+                    producto = next(
+                        detalle['producto']
+                        for detalle in detalles_validos
+                        if detalle['producto'].id == producto_id
+                    )
 
                     if cantidad_total > producto.stock:
                         formulario.add_error(
@@ -109,13 +112,17 @@ def crear_venta(request):
                     total += precio * cantidad
 
                 # Descontar el stock una sola vez por producto
+                productos_procesados = set()
+
                 for detalle in detalles_validos:
                     producto = detalle['producto']
 
-                    if producto.id in cantidades_por_producto:
-                        cantidad_total = cantidades_por_producto.pop(producto.id)
+                    if producto.id not in productos_procesados:
+                        cantidad_total = cantidades_por_producto[producto.id]
                         producto.stock -= cantidad_total
                         producto.save()
+
+                        productos_procesados.add(producto.id)
 
                 # Actualizar el total de la venta
                 venta.total = total
@@ -157,4 +164,3 @@ def ver_detalle_venta(request, id):
         }
     )
 
-# Create your views here.

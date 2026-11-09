@@ -9,9 +9,9 @@ class Producto(models.Model):
     precio = models.DecimalField(max_digits=10, decimal_places=2)
     stock = models.PositiveIntegerField()
     categoria = models.ForeignKey(
-        'categorias.Categoria',
-        on_delete=models.CASCADE
-    )
+    'categorias.Categoria',
+    on_delete=models.PROTECT
+)
     activa = models.BooleanField(default=True)
     fecha_registro = models.DateTimeField(auto_now_add=True)
 
