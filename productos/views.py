@@ -1,5 +1,4 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.shortcuts import render, redirect
 from .models import Producto
 from .forms import ProductoForm
 
@@ -29,7 +28,7 @@ def crear_producto(request):
         {'formulario': formulario}
     )
 def modificar_producto(request, id):
-    producto = Producto.objects.get(id=id)
+    producto = get_object_or_404(Producto, id=id)
 
     if request.method == 'POST':
         formulario = ProductoForm(request.POST, instance=producto)
