@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Modificar categoría - Tienda Lula
+{% endblock %}
+
+{% block content %}
+
+<section class="panel panel-formulario">
+
+    <h1 class="titulo-pagina">
+        Modificar categoría
+    </h1>
+
+    <form method="POST" class="formulario">
+
+        {% csrf_token %}
+
+        {{ formulario.as_p }}
+
+        <button type="submit" class="boton">
+            Guardar cambios
+        </button>
+
+    </form>
+
+    <a class="enlace-volver"
+       href="{% url 'categorias:listar_categorias' %}">
+        Volver al listado
+    </a>
+
+</section>
+
+{% endblock %}

@@ -1,0 +1,81 @@
+
+{% extends 'base.html' %}
+
+{% block title %}
+    Ventas - Tienda Lula
+{% endblock %}
+
+{% block content %}
+
+<section class="panel">
+
+    <div class="encabezado-listado">
+
+        <h1 class="titulo-pagina">
+            Listado de ventas
+        </h1>
+
+        <a class="boton" href="{% url 'ventas:crear_venta' %}">
+            + Registrar nueva venta
+        </a>
+
+    </div>
+
+    <div class="lista-productos">
+
+        {% for venta in ventas %}
+
+            <article class="producto">
+
+                <h2>
+                    Venta N.º {{ venta.id }}
+                </h2>
+
+                <p>
+                    <strong>Cliente:</strong>
+                    {{ venta.cliente.nombre_apellido }}
+                </p>
+
+                <p>
+                    <strong>Fecha:</strong>
+                    {{ venta.fecha_venta|date:"d/m/Y H:i" }}
+                </p>
+
+                <p>
+                    <strong>Productos:</strong>
+                </p>
+
+                <ul>
+
+                    {% for detalle in venta.detalleventa_set.all %}
+
+                        <li>
+                            {{ detalle.producto.nombre }}
+                            - Cantidad: {{ detalle.cantidad }}
+                            - Precio unitario: ${{ detalle.precio_unitario }}
+                        </li>
+
+                    {% endfor %}
+
+                </ul>
+
+                <p>
+                    <strong>Total de la venta:</strong>
+                    ${{ venta.total }}
+                </p>
+
+            </article>
+
+        {% empty %}
+
+            <p class="mensaje-vacio">
+                Todavía no hay ventas registradas.
+            </p>
+
+        {% endfor %}
+
+    </div>
+
+</section>
+
+{% endblock %}

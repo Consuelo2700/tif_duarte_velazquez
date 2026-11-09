@@ -103,6 +103,10 @@ USE_TZ = True
 # Archivos estáticos
 STATIC_URL = 'static/'
 
+STATICFILES_DIRS = [
+    BASE_DIR / 'static'
+]
+
 # Correo electrónico
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 

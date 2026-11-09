@@ -1,0 +1,35 @@
+
+{% extends 'base.html' %}
+
+{% block title %}
+    Modificar cliente - Tienda Lula
+{% endblock %}
+
+{% block content %}
+
+<section class="panel panel-formulario">
+
+    <h1 class="titulo-pagina">
+        Modificar cliente
+    </h1>
+
+    <form method="POST" class="formulario">
+
+        {% csrf_token %}
+
+        {{ formulario.as_p }}
+
+        <button type="submit" class="boton">
+            Guardar cambios
+        </button>
+
+    </form>
+
+    <a class="enlace-volver"
+       href="{% url 'clientes:listar_clientes' %}">
+        Volver al listado
+    </a>
+
+</section>
+
+{% endblock %}

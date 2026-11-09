@@ -1,0 +1,55 @@
+
+{% extends 'base.html' %}
+
+{% block title %}
+    Registrar venta - Tienda Lula
+{% endblock %}
+
+{% block content %}
+
+<section class="panel panel-formulario">
+
+    <h1 class="titulo-pagina">
+        Registrar nueva venta
+    </h1>
+
+    <form method="POST" class="formulario">
+
+        {% csrf_token %}
+
+        <h2>Datos del cliente</h2>
+
+        {{ formulario.as_p }}
+
+        <h2>Productos de la venta</h2>
+
+        {{ formulario_detalles.management_form }}
+
+        {{ formulario_detalles.non_form_errors }}
+
+        {% for detalle in formulario_detalles %}
+
+            <div class="producto">
+
+                <h3>Producto {{ forloop.counter }}</h3>
+
+                {{ detalle.as_p }}
+
+            </div>
+
+        {% endfor %}
+
+        <button type="submit" class="boton">
+            Registrar venta
+        </button>
+
+    </form>
+
+    <a class="enlace-volver"
+       href="{% url 'ventas:listar_ventas' %}">
+        Volver al listado
+    </a>
+
+</section>
+
+{% endblock %}
