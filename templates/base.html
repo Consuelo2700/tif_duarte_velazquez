@@ -1,0 +1,74 @@
+
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{% block title %}Tienda Lula{% endblock %}</title>
+
+    <link rel="stylesheet" href="{% static 'css/estilos.css' %}">
+</head>
+
+<body>
+
+    <header class="encabezado">
+
+        <a class="marca" href="{% url 'inicio' %}">
+            <img src="{% static 'css/img/logo-tienda-lula.jpeg' %}"
+                 alt="Logo Tienda Lula"
+                >
+
+            <span class="marca-texto">
+                <strong>Tienda Lula</strong>
+                <small>Ventas por mayor y menor</small>
+            </span>
+        </a>
+
+    </header>
+
+
+    <nav class="navegacion">
+
+        <a href="{% url 'inicio' %}">Inicio</a>
+
+        <a href="{% url 'productos:listar_productos' %}">
+            Productos
+        </a>
+
+        <a href="{% url 'categorias:listar_categorias' %}">
+            Categorías
+        </a>
+
+
+        <a href="{% url 'clientes:listar_clientes' %}">
+            Clientes
+        </a>
+
+        <a href="{% url 'ventas:listar_ventas' %}">
+            Ventas
+        </a>
+
+    </nav>
+
+
+    <main class="contenido-principal">
+
+        {% block content %}
+        {% endblock %}
+
+    </main>
+
+
+    <footer class="pie">
+
+        <p>Tienda Lula · Sistema de gestión</p>
+
+    </footer>
+
+</body>
+
+</html>

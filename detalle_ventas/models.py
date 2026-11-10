@@ -1,8 +1,8 @@
 from django.db import models
 
 class DetalleVenta(models.Model):
-    venta = models.ForeignKey('ventas.Venta', on_delete=models.CASCADE)
-    producto = models.ForeignKey('productos.Producto', on_delete=models.CASCADE)
+    venta = models.ForeignKey('ventas.Venta', on_delete=models.PROTECT)
+    producto = models.ForeignKey('productos.Producto', on_delete=models.PROTECT)
     cantidad = models.PositiveIntegerField()
     precio_unitario = models.DecimalField(max_digits=10, decimal_places=2) #precio del producto al momento de la venta
 

@@ -1,0 +1,118 @@
+
+{% extends 'base.html' %}
+
+{% block title %}
+    Productos - Tienda Lula
+{% endblock %}
+
+{% block content %}
+
+<section class="panel">
+
+    <div class="encabezado-listado">
+
+        <h1 class="titulo-pagina">
+            Listado de productos
+        </h1>
+
+        <a class="boton" href="{% url 'productos:crear_producto' %}">
+            + Registrar nuevo producto
+        </a>
+
+    </div>
+
+
+    <div class="lista-productos">
+
+        {% for producto in productos %}
+
+            <article class="producto">
+
+                <h2>{{ producto.nombre }}</h2>
+
+                <p>
+                    <strong>Código:</strong>
+                    {{ producto.codigo }}
+                </p>
+
+                <p>
+                    <strong>Precio:</strong>
+                    ${{ producto.precio }}
+                </p>
+
+                <p>
+                    <strong>Stock:</strong>
+                    {{ producto.stock }}
+                </p>
+
+                <p>
+                    <strong>Categoría:</strong>
+                    {{ producto.categoria }}
+                </p>
+
+                <p>
+                    <strong>Estado:</strong>
+
+                    {% if producto.activa %}
+
+                        <span class="estado estado-activo">
+                            Activo
+                        </span>
+
+                    {% else %}
+
+                        <span class="estado estado-inactivo">
+                            Inactivo
+                        </span>
+
+                    {% endif %}
+
+                </p>
+
+
+                <div class="acciones">
+
+                    <a class="boton"
+                       href="{% url 'productos:modificar_producto' producto.id %}">
+                        Modificar
+                    </a>
+
+
+                    <form method="POST"
+                          action="{% url 'productos:cambiar_estado_producto' producto.id %}">
+
+                        {% csrf_token %}
+
+                        {% if producto.activa %}
+
+                            <button type="submit" class="boton boton-estado">
+                                Desactivar
+                            </button>
+
+                        {% else %}
+
+                            <button type="submit" class="boton boton-estado">
+                                Activar
+                            </button>
+
+                        {% endif %}
+
+                    </form>
+
+                </div>
+
+            </article>
+
+        {% empty %}
+
+            <p class="mensaje-vacio">
+                Todavía no hay productos registrados.
+            </p>
+
+        {% endfor %}
+
+    </div>
+
+</section>
+
+{% endblock %}

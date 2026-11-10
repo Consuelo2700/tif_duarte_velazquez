@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Inicio - Tienda Lula
+{% endblock %}
+
+{% block content %}
+
+<section class="panel inicio">
+
+    <h1>Bienvenidos a Tienda Lula</h1>
+
+    <p>
+        Sistema de gestión de productos, clientes y ventas.
+    </p>
+
+
+    <div class="secciones">
+
+        <article class="tarjeta">
+
+            <h2>Productos</h2>
+
+            <p>
+                Administración de productos y stock.
+            </p>
+
+            <a class="boton"
+               href="{% url 'productos:listar_productos' %}">
+
+                Ingresar a productos
+
+            </a>
+
+        </article>
+
+
+        <article class="tarjeta">
+
+            <h2>Categorías</h2>
+
+            <p>
+                Organización de los productos.
+            </p>
+
+            <a class="boton"
+               href="{% url 'categorias:listar_categorias' %}">
+
+                Ingresar a categorías
+
+            </a>
+
+        </article>
+
+
+        <article class="tarjeta">
+
+            <h2>Clientes</h2>
+
+            <p>
+                Registro de clientes.
+            </p>
+
+            <a class="boton"
+               href="{% url 'clientes:listar_clientes' %}">
+
+                Ingresar a clientes
+
+            </a>
+
+        </article>
+
+
+        <article class="tarjeta">
+
+            <h2>Ventas</h2>
+
+            <p>
+                Registro y consulta de ventas.
+            </p>
+
+            <a class="boton"
+               href="{% url 'ventas:listar_ventas' %}">
+
+                Ingresar a ventas
+
+            </a>
+
+        </article>
+
+    </div>
+
+</section>
+
+{% endblock %}

@@ -1,0 +1,39 @@
+
+{% extends 'base.html' %}
+
+{% block title %}
+    Modificar producto - Tienda Lula
+{% endblock %}
+
+{% block content %}
+
+<section class="panel panel-formulario">
+
+    <h1 class="titulo-pagina">
+        Modificar producto
+    </h1>
+
+
+    <form method="POST" class="formulario">
+
+        {% csrf_token %}
+
+        {{ formulario.as_p }}
+
+        <button type="submit" class="boton">
+            Guardar cambios
+        </button>
+
+    </form>
+
+
+    <a class="enlace-volver"
+       href="{% url 'productos:listar_productos' %}">
+
+        Volver al listado
+
+    </a>
+
+</section>
+
+{% endblock %}
